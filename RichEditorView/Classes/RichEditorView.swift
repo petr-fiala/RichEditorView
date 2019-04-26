@@ -41,6 +41,8 @@ import UIKit
 
     // MARK: Public Properties
 
+    open var keyboardInset: CGFloat = 0
+
     /// The delegate that will receive callbacks when certain actions are completed.
     open weak var delegate: RichEditorDelegate?
 
@@ -469,9 +471,9 @@ import UIKit
         let visiblePosition = CGFloat(relativeCaretYPosition)
         var offset: CGPoint?
 
-        if visiblePosition + cursorHeight > scrollView.bounds.size.height {
+        if visiblePosition + cursorHeight > scrollView.bounds.size.height - keyboardInset {
             // Visible caret position goes further than our bounds
-            offset = CGPoint(x: 0, y: (visiblePosition + lineHeight) - scrollView.bounds.height + scrollView.contentOffset.y)
+            offset = CGPoint(x: 0, y: (visiblePosition + lineHeight) - scrollView.bounds.height + scrollView.contentOffset.y + keyboardInset)
 
         } else if visiblePosition < 0 {
             // Visible caret position is above what is currently visible
